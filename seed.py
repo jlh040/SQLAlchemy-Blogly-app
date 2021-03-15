@@ -19,5 +19,5 @@ db.session.add(whiskey)
 db.session.add(bowser)
 db.session.add(spike)
 
-# Commit--otherwise, this never gets saved!
+# Commit
 db.session.commit()
