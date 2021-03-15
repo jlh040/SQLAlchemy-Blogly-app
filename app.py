@@ -46,9 +46,11 @@ def create_new_user():
 
     return redirect('/users')
 
-@app.route('/user/<user_id>')
-def show_user_detail():
+@app.route('/users/<int:user_id>')
+def show_user_detail(user_id):
     """Show more details for the user."""
+    user = User.query.get(user_id)
+    return render_template('user_detail.html', user=user)
 
 
 
