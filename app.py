@@ -25,11 +25,30 @@ def show_home_page():
 def show_all_users():
     """Show all the users."""
     users = User.query.all()
-    return render_template('user_listing.html', users=users)
+    return render_template('user_listing.html', users = users)
+
+@app.route('/users/new')
+def show_new_user_page():
+    """Show the 'create user' page."""
+    return render_template('add_user.html')
+
+@app.route('/users/new', methods=['POST'])
+def create_new_user():
+    """Create a new user and return to users."""
+    first_name = request.form['first-name']
+    last_name = request.form['last-name']
+    image_url = request.form['image-url']
+    image_url = image_url if image_url else None
+
+    user = User(first_name = first_name, last_name = last_name, image_url = image_url)
+    db.session.add(user)
+    db.session.commit()
+
+    return redirect('/users')
 
 @app.route('/user/<user_id>')
 def show_user_detail():
     """Show more details for the user."""
-    
+
 
 
