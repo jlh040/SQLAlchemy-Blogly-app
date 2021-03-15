@@ -52,5 +52,41 @@ def show_user_detail(user_id):
     user = User.query.get(user_id)
     return render_template('user_detail.html', user=user)
 
+@app.route('/users/<int:user_id>/edit')
+def show_edit_page(user_id):
+    """Show the edit page for a user."""
+    user = User.query.get(user_id)
+    return render_template('edit_user.html', user = user)
+
+@app.route('/users/<int:user_id>/edit', methods = ['POST'])
+def edit_user(user_id):
+    """Edit the user's info."""
+    edited_first_name = request.form['first-name']
+    edited_last_name = request.form['last-name']
+    edited_img_url = request.form['image-url']
+    edited_img_url = edited_img_url if edited_img_url else None
+
+    user = User.query.get(user_id)
+
+    user.first_name = edited_first_name
+    user.last_name = edited_last_name
+    user.image_url = edited_img_url
+
+    db.session.add(user)
+    db.session.commit()
+
+    return redirect('/users')
+
+
+@app.route('/users/<int:user_id>/delete', methods = ['POST'])
+def delete_user(user_id):
+    """Delete a user from our database."""
+    User.query.filter(User.id == user_id).delete()
+    db.session.commit()
+    
+    return redirect('/users')
+
+
+
 
 

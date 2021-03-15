@@ -19,8 +19,10 @@
             </div>
             <div class="row">
                 <div class='col-3'>
-                    <button class="btn btn-warning">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
+                    <form action="/users/{{ user.id }}/delete" method="POST">
+                        <button class="btn btn-warning"><a href="/users/{{ user.id }}/edit">Edit</a></button>
+                        <button class="btn btn-danger" type="submit"><a>Delete</a></button>
+                    </form>
                 </div>
             </div>
         </div>
