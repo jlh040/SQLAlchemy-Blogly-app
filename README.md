@@ -2,6 +2,8 @@
 - Technologies used:
   - Python
   - Flask
+  - SQL
+  - PostgreSQL
   - SQLAlchemy
   - Bootstrap
   - HTML
