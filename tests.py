@@ -52,3 +52,8 @@ class BloglyRouteTestCase(TestCase):
 
             self.assertIn('Jack Skellington', html)
 
+    def test_homepage_redirect(self):
+        """Test that the '/' route is actually redirected."""
+        with app.test_client() as client:
+            resp = client.get('/')
+            self.assertEqual(resp.status_code, 302)
