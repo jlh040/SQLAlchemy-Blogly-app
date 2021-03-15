@@ -14,4 +14,11 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
 
 connect_db(app)
-db.create_all()
+# db.create_all()
+
+@app.route('/')
+def show_home_page():
+    """Redirect the user to the users page."""
+    return redirect('/user_listing')
+
+
