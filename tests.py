@@ -42,3 +42,13 @@ class BloglyRouteTestCase(TestCase):
 
             self.assertIn('Mark Hammond', html)
             self.assertIn('Sally Witherspoon', html)
+    
+    def test_create_user(self):
+        """Test that a new user is created."""
+        new_user = {'first-name': 'Jack', 'last-name': 'Skellington'}
+        with app.test_client() as client:
+            resp = client.post('/users/new', data=new_user, follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertIn('Jack Skellington', html)
+

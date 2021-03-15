@@ -37,8 +37,7 @@ def create_new_user():
     """Create a new user and return to users."""
     first_name = request.form['first-name']
     last_name = request.form['last-name']
-    image_url = request.form['image-url']
-    image_url = image_url if image_url else None
+    image_url = request.form.get('image-url')
 
     user = User(first_name = first_name, last_name = last_name, image_url = image_url)
     db.session.add(user)
@@ -83,10 +82,5 @@ def delete_user(user_id):
     """Delete a user from our database."""
     User.query.filter(User.id == user_id).delete()
     db.session.commit()
-    
+
     return redirect('/users')
-
-
-
-
-
