@@ -19,6 +19,17 @@ connect_db(app)
 @app.route('/')
 def show_home_page():
     """Redirect the user to the users page."""
-    return redirect('/user_listing')
+    return redirect('/users')
+
+@app.route('/users')
+def show_all_users():
+    """Show all the users."""
+    users = User.query.all()
+    return render_template('user_listing.html', users=users)
+
+@app.route('/user/<user_id>')
+def show_user_detail():
+    """Show more details for the user."""
+    
 
 
