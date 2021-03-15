@@ -10,9 +10,6 @@ app.config['DEBUG_TB_HOSTS'] = ['dont-show-debugging-toolbar']
 db.drop_all()
 db.create_all()
 
-
-
-
 class BloglyRouteTestCase(TestCase):
     """Test some of the routes in the main app file."""
 
@@ -29,7 +26,6 @@ class BloglyRouteTestCase(TestCase):
         self.user_id_1 = user_1.id
         self.user_id_2 = user_2.id
 
-    
     def tearDown(self):
         """Clear out the session."""
         db.session.rollback()
@@ -57,3 +53,20 @@ class BloglyRouteTestCase(TestCase):
         with app.test_client() as client:
             resp = client.get('/')
             self.assertEqual(resp.status_code, 302)
+    
+    def test_delete_user(self):
+        """Test that a user can be deleted."""
+        with app.test_client() as client:
+            # delete user 1
+            resp = client.post(f'/users/{self.user_id_1}/delete', follow_redirects=True)
+
+            # get user 2 from the database
+            user_2 = User.query.filter(User.id == self.user_id_2).one()
+
+            # make a request for all the users in the database
+            req_for_all_users = User.query.all()
+
+            # check that user 2 is the only one in the database
+            self.assertEqual(req_for_all_users, [user_2])
+        
+        
