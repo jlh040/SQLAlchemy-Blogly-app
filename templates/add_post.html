@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+    Add a post
+{% endblock %}
+
+{% block title %}
+    <h2>Add post for {{ user.first_name}} {{ user.last_name }}</h2>
+{% endblock %}
+
+{% block content %}
+    <form action="">
+        <div class="row">
+            <div class="col-1">
+                <label for="" class="col-form-label">Title</label>
+            </div>
+            <div class="col-3">
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-1">
+                <label for="" class="col-form-label">Content</label>
+            </div>
+            <div class="col-3">
+                <div class="d-flex flex-wrap">
+                    <textarea class="form-control"></textarea>
+                    <div class="ms-auto mt-2">
+                        <button class="btn btn-info">Cancel</button>
+                        <button class="btn btn-success">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
