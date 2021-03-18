@@ -102,3 +102,8 @@ def handle_add_form(user_id):
 
     return redirect(f'/users/{user_id}')
 
+@app.route('/posts/<int:post_id>')
+def show_post(post_id):
+    """Show a post."""
+    post = Post.query.get(post_id)
+    return render_template('post_detail.html', post=post)

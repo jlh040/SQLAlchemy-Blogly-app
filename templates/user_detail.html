@@ -30,7 +30,7 @@
                     <h2>Posts</h2>
                     <ul>
                         {% for post in posts %}
-                            <li>{{ post.title }}</li>
+                            <li><a href="/posts/{{ post.id }}">{{ post.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
