@@ -113,3 +113,19 @@ def show_post(post_id):
 def show_post_edit_page(post_id):
     post = Post.query.get(post_id)
     return render_template('edit_post.html', post=post)
+
+@app.route('/posts/<int:post_id>/edit', methods=['POST'])
+def handle_edit_post(post_id):
+    """Handle the editing of a post."""
+    edited_title = request.form['title']
+    edited_content = request.form['content']
+    post = Post.query.get(post_id)
+
+    post.title = edited_title
+    post.content = edited_content
+
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect(f'/posts/{post.id}')
+

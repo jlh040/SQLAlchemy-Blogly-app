@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+    Post
+{% endblock %}
+
+{% block title %}
+    <h1>{{ post.title }}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <p>
+                {{ post.content }}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-0">
+            <b><i>By {{ post.user.first_name }} {{ post.user.last_name }}</i></b>
+        </div>
+    </div>
+    <form action="" class="mt-3">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-outline-primary"><a href="/users/{{ post.user_id }}">Cancel</a></button></a>
+                <button class="btn btn-outline-info"><a href="/posts/{{ post.id }}/edit">Edit</a></button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+
