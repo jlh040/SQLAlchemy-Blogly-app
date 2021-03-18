@@ -86,7 +86,7 @@ def delete_user(user_id):
     return redirect('/users')
 
 @app.route('/users/<int:user_id>/posts/new')
-def show_add_post_for(user_id):
+def show_add_post_form(user_id):
     """Show form to add a post for the user."""
     user = User.query.get(user_id)
     return render_template('add_post.html', user=user)
@@ -95,6 +95,7 @@ def show_add_post_for(user_id):
 def handle_add_form(user_id):
     title = request.form['title']
     content = request.form['content']
+
     post = Post(title = title, content = content, user_id = user_id)
 
     db.session.add(post)
@@ -107,3 +108,8 @@ def show_post(post_id):
     """Show a post."""
     post = Post.query.get(post_id)
     return render_template('post_detail.html', post=post)
+
+@app.route('/posts/<int:post_id>/edit')
+def show_post_edit_page(post_id):
+    post = Post.query.get(post_id)
+    return render_template('edit_post.html', post=post)
