@@ -29,7 +29,9 @@
                 <div class="col mt-4">
                     <h2>Posts</h2>
                     <ul>
-                        <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus, debitis excepturi?</li>
+                        {% for post in posts %}
+                            <li>{{ post.title }}</li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
