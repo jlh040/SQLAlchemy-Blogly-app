@@ -93,6 +93,7 @@ def show_add_post_form(user_id):
 
 @app.route('/users/<int:user_id>/posts/new', methods = ['POST'])
 def handle_add_form(user_id):
+    """Process the new post."""
     title = request.form['title']
     content = request.form['content']
 
@@ -111,6 +112,7 @@ def show_post(post_id):
 
 @app.route('/posts/<int:post_id>/edit')
 def show_post_edit_page(post_id):
+    """Show the page to edit a post."""
     post = Post.query.get(post_id)
     return render_template('edit_post.html', post=post)
 
