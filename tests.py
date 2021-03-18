@@ -107,8 +107,3 @@ class BloglyRouteTestCase(TestCase):
             resp_2 = client.get(f'/users/{self.user_id_1}')
             html = resp_2.get_data(as_text = True)
             self.assertNotIn('This is yet another post', html)
-
-
-
-        
-        
