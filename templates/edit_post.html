@@ -26,7 +26,7 @@
                 <div class="d-flex flex-wrap">
                     <textarea class="form-control" name="content">{{ post.content }}</textarea>
                     <div class="ms-auto mt-2">
-                        <button class="btn btn-outline-info"><a href="/users/{{ post.user.id }}">Cancel</a></button>
+                        <a href="/users/{{ post.user.id }}"><button class="btn btn-outline-info" type="button">Cancel</button></a>
                         <button class="btn btn-success">Edit</button>
                     </div>
                 </div>

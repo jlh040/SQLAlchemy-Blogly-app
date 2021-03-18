@@ -129,3 +129,13 @@ def handle_edit_post(post_id):
 
     return redirect(f'/posts/{post.id}')
 
+@app.route('/posts/<int:post_id>/delete', methods=['POST'])
+def delete_post(post_id):
+    """Delete a post."""
+    post = Post.query.filter(Post.id == post_id).one()
+    user_id = post.user_id
+    Post.query.filter(Post.id == post_id).delete()
+    db.session.commit()
+
+    return redirect(f'/users/{user_id}')
+

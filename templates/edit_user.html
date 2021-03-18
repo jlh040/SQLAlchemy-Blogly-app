@@ -28,7 +28,7 @@
             <input type="text" class="form-control" id="image-url" name="image-url" value="{{ user.image_url }}">
         </div>
     </div>
-    <button class="btn btn-white"><a href="/users/{{ user.id }}">Cancel</a></button>
+    <a href="/users/{{ user.id }}"><button class="btn btn-outline-info" type="button">Cancel</button></a>
     <button class="btn btn-success" type="submit"><a>Save</a></button>
 </form>
 {% endblock %}
