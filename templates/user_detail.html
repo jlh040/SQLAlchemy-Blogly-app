@@ -7,7 +7,7 @@
 {% block content %}
     <div class="row">
         <div class="col-3">
-            <img src="{{ user.image_url }}" class="img-fluid">
+            <img src="{{ user.image_url }}" class="img-fluid img-thumbnail">
         </div>
         <div class="col">
             <div class="row">
@@ -22,6 +22,21 @@
                     <form action="/users/{{ user.id }}/delete" method="POST">
                         <button class="btn btn-warning"><a href="/users/{{ user.id }}/edit">Edit</a></button>
                         <button class="btn btn-danger" type="submit"><a>Delete</a></button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mt-4">
+                    <h2>Posts</h2>
+                    <ul>
+                        <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus, debitis excepturi?</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <form action="/users/{{ user.id }}/posts/new" method="GET">
+                        <button class="btn btn-primary">Add Post</button>
                     </form>
                 </div>
             </div>
