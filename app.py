@@ -83,3 +83,9 @@ def delete_user(user_id):
     db.session.commit()
 
     return redirect('/users')
+
+@app.route('/users/<int:user_id>/posts/new')
+def show_add_post_for(user_id):
+    """Show form to add a post for the user."""
+    user = User.query.get(user_id)
+    return render_template('add_post.html', user=user)
