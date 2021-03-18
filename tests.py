@@ -1,6 +1,6 @@
 from unittest import TestCase
 from app import app
-from models import db, User
+from models import db, User, Post
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test_db'
 app.config['SQLALCHEMY_ECHO'] = False
@@ -15,6 +15,7 @@ class BloglyRouteTestCase(TestCase):
 
     def setUp(self):
         """Clear out the database and add sample users."""
+        Post.query.delete()
         User.query.delete()
 
         user_1 = User(first_name = 'Mark', last_name = "Hammond")
@@ -29,6 +30,7 @@ class BloglyRouteTestCase(TestCase):
     def tearDown(self):
         """Clear out the session."""
         db.session.rollback()
+        
 
     def test_show_all_users(self):
         """Test that the users appear on the page."""
@@ -68,5 +70,45 @@ class BloglyRouteTestCase(TestCase):
 
             # check that user 2 is the only one in the database
             self.assertEqual(req_for_all_users, [user_2])
+    
+    def test_post_creation(self):
+        """Test that a post is created."""
+        with app.test_client() as client:
+            # Make a post
+            resp_1 = client.post(f'/users/{self.user_id_2}/posts/new', data = {'title': 'My first post',
+            'content': 'This is the content of my first post'}, follow_redirects = True)
+            
+            # Get that post
+            user = User.query.get(self.user_id_2)
+            post = user.posts[0]
+
+            # Go to the page for that post
+            resp_2 = client.get(f'/posts/{post.id}')
+            html = resp_2.get_data(as_text = True)
+
+            # Check that the expected text is on that post's page
+            self.assertIn('My first post', html)
+            self.assertIn('This is the content of my first post', html)
+    
+    def test_post_deletion(self):
+        """Test that a post can be deleted."""
+        with app.test_client() as client:
+            # Make a post
+            resp = client.post(f'/users/{self.user_id_1}/posts/new', data = {'title': 'This is yet another post',
+            'content': 'Welcome to my beautiful post.'}, follow_redirects = True)
+
+            # Get the post id
+            post_id = Post.query.filter(Post.user_id == self.user_id_1).one().id
+
+            # Delete the post
+            client.post(f'/posts/{post_id}/delete', follow_redirects = True)
+            
+            # Check that the post is gone
+            resp_2 = client.get(f'/users/{self.user_id_1}')
+            html = resp_2.get_data(as_text = True)
+            self.assertNotIn('This is yet another post', html)
+
+
+
         
         
