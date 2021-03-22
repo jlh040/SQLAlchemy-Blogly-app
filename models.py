@@ -38,4 +38,18 @@ class Tag(db.Model):
     id = db.Column(db.Integer, autoincrement = True, primary_key = True)
     name = db.Column(db.Text, unique = True, nullable = False)
 
+    posts = db.relationship('Post', secondary = 'post_tag', backref = 'tags')
+
+class PostTag(db.Model):
+    """Make a join table for posts and tags."""
+
+    ___tablename__ = 'post_tag'
+
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key = True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key = True)
+
+
+
+
+
 
