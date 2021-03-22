@@ -168,3 +168,9 @@ def handle_new_tag():
     db.session.commit()
 
     return redirect('/tags')
+
+@app.route('/tags/<int:tag_id>/edit')
+def show_edit_tag(tag_id):
+    """Show edit tag page."""
+    tag = Tag.query.get(tag_id)
+    return render_template('edit_tag.html', tag=tag)
