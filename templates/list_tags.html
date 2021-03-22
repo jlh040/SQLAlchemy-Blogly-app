@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+All tags
+{% endblock %}
+
+{% block title %}
+<h1>
+    Tags
+</h1>
+{% endblock %}
+
+{% block content %}
+<div class="list-group">
+    {% for tag in all_tags %}
+    <a href="/tags/{{ tag.id }} " class="list-group-item list-group-item-action">{{ tag.name }}</a>
+    {% endfor %}
+</div>
+<button class="btn btn-primary mt-4">
+    Add tag
+</button>
+{% endblock %}
