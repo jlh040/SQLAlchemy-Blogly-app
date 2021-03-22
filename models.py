@@ -1,13 +1,8 @@
 """Models for Blogly."""
 
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 
 db = SQLAlchemy()
-
-def get_datetime():
-    """Get the current time and date without microseconds."""
-    return str(datetime.now().replace(microsecond=0))
 
 def connect_db(app):
     """Connect flask and SQLAlchemy."""
@@ -34,5 +29,13 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     user = db.relationship('User', backref = 'posts')
+
+class Tag(db.Model):
+    """Make the tags table."""
+
+    __tablename__ == 'tags'
+
+    id = db.Column(db.Integer, autoincrement = True, primary_key = True)
+    name = db.Column(db.Text, unique = True, nullable = False)
 
 
