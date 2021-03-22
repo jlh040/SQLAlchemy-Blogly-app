@@ -40,6 +40,7 @@ def create_new_user():
     image_url = request.form.get('image-url')
 
     user = User(first_name = first_name, last_name = last_name, image_url = image_url)
+    
     db.session.add(user)
     db.session.commit()
 
@@ -137,6 +138,7 @@ def delete_post(post_id):
     post = Post.query.filter(Post.id == post_id).one()
     user_id = post.user_id
     Post.query.filter(Post.id == post_id).delete()
+
     db.session.commit()
 
     return redirect(f'/users/{user_id}')
@@ -164,6 +166,7 @@ def handle_new_tag():
     """Add new tag to db."""
     name_of_tag = request.form['tag-name']
     new_tag = Tag(name = name_of_tag)
+
     db.session.add(new_tag)
     db.session.commit()
 
@@ -174,3 +177,14 @@ def show_edit_tag(tag_id):
     """Show edit tag page."""
     tag = Tag.query.get(tag_id)
     return render_template('edit_tag.html', tag=tag)
+
+@app.route('/tags/<int:tag_id>/edit', methods=['POST'])
+def handle_edit_tag_form(tag_id):
+    edited_tag_name = request.form['edited-tag-name']
+    orig_tag = Tag.query.get(tag_id)
+    orig_tag.name = edited_tag_name
+
+    db.session.add(orig_tag)
+    db.session.commit()
+
+    return redirect('/tags')
