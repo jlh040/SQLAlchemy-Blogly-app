@@ -11,13 +11,13 @@ Create tag
 {% endblock %}
 
 {% block content %}
-<form action="">
+<form action="/tags/new" method="POST">
     <div class="row">
         <label for="name-of-tag" class="col-1 col-form-label">Name:</label>
         <div class="col-3 d-flex flex-wrap">
-            <input type="text" class="form-control" id="name-of-tag" placeholder="Enter a name for the tag">
+            <input type="text" class="form-control" id="name-of-tag" placeholder="Enter a name for the tag" name="tag-name">
             <div class="ms-auto mt-3">
-                <button class="btn btn-outline-primary">Cancel</button>
+                <a href="/tags"><button type="button" class="btn btn-outline-primary">Cancel</button></a>
                 <button class="btn btn-success">Add</button>
             </div>
         </div>

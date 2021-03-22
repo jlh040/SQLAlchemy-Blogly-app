@@ -159,4 +159,12 @@ def show_add_tag_page():
     """Show the page to add a tag."""
     return render_template('add_tag.html')
 
+@app.route('/tags/new', methods=['POST'])
+def handle_new_tag():
+    """Add new tag to db."""
+    name_of_tag = request.form['tag-name']
+    new_tag = Tag(name = name_of_tag)
+    db.session.add(new_tag)
+    db.session.commit()
 
+    return redirect('/tags')
