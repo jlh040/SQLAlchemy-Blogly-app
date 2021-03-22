@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+Create tag
+{% endblock %}
+
+{% block title %}
+<h1>
+    Create a tag
+</h1>
+{% endblock %}
+
+{% block content %}
+<form action="">
+    <div class="row">
+        <label for="name-of-tag" class="col-1 col-form-label">Name:</label>
+        <div class="col-3 d-flex flex-wrap">
+            <input type="text" class="form-control" id="name-of-tag" placeholder="Enter a name for the tag">
+            <div class="ms-auto mt-3">
+                <button class="btn btn-outline-primary">Cancel</button>
+                <button class="btn btn-success">Add</button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

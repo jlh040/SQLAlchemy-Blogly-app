@@ -154,3 +154,9 @@ def show_tag_info(tag_id):
     posts = tag.posts
     return render_template('tag_info.html', tag=tag, posts=posts)
 
+@app.route('/tags/new')
+def show_add_tag_page():
+    """Show the page to add a tag."""
+    return render_template('add_tag.html')
+
+
