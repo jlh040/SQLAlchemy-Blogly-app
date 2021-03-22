@@ -33,7 +33,7 @@ class Post(db.Model):
 class Tag(db.Model):
     """Make the tags table."""
 
-    __tablename__ == 'tags'
+    __tablename__ = 'tags'
 
     id = db.Column(db.Integer, autoincrement = True, primary_key = True)
     name = db.Column(db.Text, unique = True, nullable = False)
@@ -47,9 +47,3 @@ class PostTag(db.Model):
 
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key = True)
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key = True)
-
-
-
-
-
-
