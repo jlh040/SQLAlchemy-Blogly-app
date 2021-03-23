@@ -150,6 +150,7 @@ def delete_post(post_id):
     """Delete a post."""
     post = Post.query.filter(Post.id == post_id).one()
     user_id = post.user_id
+    delete_post_tag_via_post(post_id)
     Post.query.filter(Post.id == post_id).delete()
 
     db.session.commit()
@@ -206,16 +207,22 @@ def handle_edit_tag_form(tag_id):
 @app.route('/tags/<int:tag_id>/delete', methods=['POST'])
 def delete_tag(tag_id):
     """Delete a tag."""
-    delete_post_tag(tag_id)
+    delete_post_tag_via_tag(tag_id)
     tag = Tag.query.filter(Tag.id == tag_id).delete()
 
     db.session.commit()
 
     return redirect('/tags')
 
-def delete_post_tag(tag_id):
+def delete_post_tag_via_tag(tag_id):
     """Search the post_tag model for corresponding records and then delete."""
     post_tag_list = PostTag.query.filter_by(tag_id = tag_id).all()
+    for post_tag in post_tag_list:
+        db.session.delete(post_tag)
+
+def delete_post_tag_via_post(post_id):
+    """Search the post_tag model for corresponding records and then delete."""
+    post_tag_list = PostTag.query.filter_by(post_id = post_id).all()
     for post_tag in post_tag_list:
         db.session.delete(post_tag)
 
