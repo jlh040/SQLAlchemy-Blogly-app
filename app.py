@@ -129,7 +129,13 @@ def handle_edit_post(post_id):
     """Handle the editing of a post."""
     edited_title = request.form['title']
     edited_content = request.form['content']
+    selected_tag_names = request.form.getlist('tag')
+    selected_tags = selected_tag_objs(selected_tag_names)
+
     post = Post.query.get(post_id)
+
+    post.tags.clear()
+    post.tags.extend(selected_tags)
 
     post.title = edited_title
     post.content = edited_content
@@ -230,3 +236,5 @@ def selected_tag_objs(tag_names):
             selected_tags.append(tag)
 
     return selected_tags
+
+    
