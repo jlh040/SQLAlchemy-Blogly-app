@@ -2,7 +2,7 @@
 
 from flask import Flask, request, redirect, flash, render_template
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post, Tag
+from models import db, connect_db, User, Post, Tag, PostTag
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
@@ -40,7 +40,7 @@ def create_new_user():
     image_url = request.form.get('image-url')
 
     user = User(first_name = first_name, last_name = last_name, image_url = image_url)
-    
+
     db.session.add(user)
     db.session.commit()
 
@@ -180,6 +180,7 @@ def show_edit_tag(tag_id):
 
 @app.route('/tags/<int:tag_id>/edit', methods=['POST'])
 def handle_edit_tag_form(tag_id):
+    """Add the edited tag to the database."""
     edited_tag_name = request.form['edited-tag-name']
     orig_tag = Tag.query.get(tag_id)
     orig_tag.name = edited_tag_name
@@ -188,3 +189,19 @@ def handle_edit_tag_form(tag_id):
     db.session.commit()
 
     return redirect('/tags')
+
+@app.route('/tags/<int:tag_id>/delete', methods=['POST'])
+def delete_tag(tag_id):
+    """Delete a tag."""
+    delete_post_tag(tag_id)
+    tag = Tag.query.filter(Tag.id == tag_id).delete()
+
+    db.session.commit()
+
+    return redirect('/tags')
+
+def delete_post_tag(tag_id):
+    """Search the post_tag model for corresponding records and then delete."""
+    post_tag_list = PostTag.query.filter_by(tag_id = tag_id).all()
+    for post_tag in post_tag_list:
+        db.session.delete(post_tag)
