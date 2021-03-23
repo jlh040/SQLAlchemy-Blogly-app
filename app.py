@@ -98,8 +98,11 @@ def handle_add_form(user_id):
     """Process the new post."""
     title = request.form['title']
     content = request.form['content']
+    selected_tag_names = request.form.getlist('tag')
 
     post = Post(title = title, content = content, user_id = user_id)
+    selected_tags = selected_tag_objs(selected_tag_names)
+    post.tags.extend(selected_tags)
 
     db.session.add(post)
     db.session.commit()
@@ -209,3 +212,21 @@ def delete_post_tag(tag_id):
     post_tag_list = PostTag.query.filter_by(tag_id = tag_id).all()
     for post_tag in post_tag_list:
         db.session.delete(post_tag)
+
+def get_tag_names_in_db():
+    tag_names = []
+    tag_objs = Tag.query.all()
+    for tag in tag_objs:
+        tag_names.append(tag.name)
+    
+    return tag_names
+
+def selected_tag_objs(tag_names):
+    """Make tag objects and insert them into the database."""
+    selected_tags = []
+    for tag_name in get_tag_names_in_db():
+        if tag_name in tag_names:
+            tag = db.session.query(Tag).filter(Tag.name == tag_name).one()
+            selected_tags.append(tag)
+
+    return selected_tags
