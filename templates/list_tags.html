@@ -16,7 +16,10 @@ All tags
     <a href="/tags/{{ tag.id }} " class="list-group-item list-group-item-action">{{ tag.name }}</a>
     {% endfor %}
 </div>
-<button class="btn btn-primary mt-4">
-    Add tag
-</button>
+<a href="/tags/new"><button class="btn btn-primary mt-4">Add tag</button></a>
+<div class="row mt-3">
+    <div class="col">
+        <a href="/users"><h3>Users</h3></a>
+    </div>
+</div>
 {% endblock %}
