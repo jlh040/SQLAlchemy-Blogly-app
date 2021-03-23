@@ -90,7 +90,8 @@ def delete_user(user_id):
 def show_add_post_form(user_id):
     """Show form to add a post for the user."""
     user = User.query.get(user_id)
-    return render_template('add_post.html', user=user)
+    tags = Tag.query.all()
+    return render_template('add_post.html', user=user, tags=tags)
 
 @app.route('/users/<int:user_id>/posts/new', methods = ['POST'])
 def handle_add_form(user_id):
@@ -107,15 +108,18 @@ def handle_add_form(user_id):
 
 @app.route('/posts/<int:post_id>')
 def show_post(post_id):
-    """Show a post."""
+    """Show a post and its tags."""
     post = Post.query.get(post_id)
-    return render_template('post_detail.html', post=post)
+    tags = post.tags
+    return render_template('post_detail.html', post=post, tags=tags)
 
 @app.route('/posts/<int:post_id>/edit')
 def show_post_edit_page(post_id):
     """Show the page to edit a post."""
     post = Post.query.get(post_id)
-    return render_template('edit_post.html', post=post)
+    user = post.user
+    tags = Tag.query.all()
+    return render_template('edit_post.html', post=post, user=user, tags=tags)
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def handle_edit_post(post_id):

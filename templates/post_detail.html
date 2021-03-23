@@ -18,8 +18,14 @@
     </div>
     <div class="row">
         <div class="col-0">
-            <b><i>By {{ post.user.first_name }} {{ post.user.last_name }}</i></b>
+            <i>By {{ post.user.first_name }} {{ post.user.last_name }} on {{ post.created_at }}</i>
         </div>
+    </div>
+    <div class="mt-3 mb-4">
+        <b>Tags:</b>
+        {% for tag in tags %}
+        <span class="badge bg-primary">{{ tag.name }}</span>
+        {% endfor %}
     </div>
     <form action="/posts/{{ post.id }}/delete" method="POST" class="mt-3">
         <div class="row">
