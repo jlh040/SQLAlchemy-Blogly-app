@@ -1,4 +1,4 @@
-- This is **part one** of a basic blogging app that allows users to create a user, display all the users in the database, update a user, and delete a user. The standard CRUD operations.
+- This is a basic blogging app that allows users to create a user, display all the users in the database, update a user, and delete a user. The standard CRUD operations. In addition to this, a user can make posts, delete them, and edit them. Each post can also have tags, which can also be added, edited, and deleted.
 - Technologies used:
   - Python
   - Flask
